@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { type ExecutorContext } from "@nx/devkit";
 
 interface BuildAnchorExecutorOptions {
@@ -16,9 +17,14 @@ export function executeAnchorCommand(options: BuildAnchorExecutorOptions, contex
     if (!projectName) {
       throw new Error('Unable to determine project root');
     }
+
+    const absoluteProjectRoot = `${process.env.NX_WORKSPACE_ROOT}/${projectRoot}`;
+    if (!existsSync(absoluteProjectRoot)) {
+      throw new Error(`Invalid project root: ${absoluteProjectRoot}`);
+    }
   
     let output = '';
-    const child = spawn('anchor', [options.command], { cwd: projectRoot, stdio: 'pipe' });
+    const child = spawn('anchor', [options.command], { cwd: absoluteProjectRoot, stdio: 'pipe' });
 
     process.stdout.setEncoding('utf8');
     child.stdout.on('data', (data) => {

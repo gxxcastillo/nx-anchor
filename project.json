@@ -18,27 +18,27 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist",
-        "main": "{sourceRoot}/index.ts",
+        "main": "./src/index.ts",
         "tsConfig": "{projectRoot}/tsconfig.lib.json",
         "assets": [
           "*.md",
           {
-            "input": "{sourceRoot}",
+            "input": "./src",
             "glob": "**/!(*.ts)",
             "output": "./src"
           },
           {
-            "input": "{sourceRoot}",
+            "input": "./src",
             "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
-            "input": "{projectRoot}",
+            "input": "./",
             "glob": "generators.json",
             "output": "."
           },
           {
-            "input": "{projectRoot}",
+            "input": "./",
             "glob": "executors.json",
             "output": "."
           }

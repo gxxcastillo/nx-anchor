@@ -1,9 +1,20 @@
 {
   "name": "@gxxc/nx-anchor",
-  "type": "module",
   "version": "0.0.3",
+  "private": false,
   "license": "MIT",
   "description": "An NX plugin for running Anchor commands",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gxxcastillo/nx-anchor"
+  },
+  "author": "gxxcastillo",
+  "keywords": [
+    "nx-plugin",
+    "nx",
+    "anchor",
+    "solana"
+  ],
   "scripts": {
     "build": "nx build",
     "test": "nx test"
@@ -38,7 +49,5 @@
   },
   "nx": {
     "includedScripts": []
-  },
-  "main": "./src/index.js",
-  "typings": "./src/index.d.ts"
+  }
 }
