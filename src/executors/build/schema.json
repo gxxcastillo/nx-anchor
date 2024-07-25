@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "version": 2,
+  "title": "Anchor build",
+  "description": "An NX executor that runs the Anchor build command",
+  "type": "object",
+  "properties": {},
+  "required": []
+}

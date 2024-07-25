@@ -1,0 +1,57 @@
+{
+  "name": "nx-anchor",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "{projectRoot}/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist",
+        "main": "{sourceRoot}/index.ts",
+        "tsConfig": "{projectRoot}/tsconfig.lib.json",
+        "assets": [
+          "{projectRoot}/*.md",
+          {
+            "input": "{sourceRoot}",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "{sourceRoot}",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test"
+    }
+  }
+}
