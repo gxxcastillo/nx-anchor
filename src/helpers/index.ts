@@ -2,11 +2,11 @@ import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { type ExecutorContext } from "@nx/devkit";
 
-interface BuildAnchorExecutorOptions {
+interface RunAnchorExecutorOptions {
   command: 'build' | 'test'
 }
 
-export function executeAnchorCommand(options: BuildAnchorExecutorOptions, context: ExecutorContext) {
+export function executeAnchorCommand(options: RunAnchorExecutorOptions, context: ExecutorContext) {
   return new Promise<{ success: boolean }>((resolve, reject) => {
     const projectName = context?.projectName;
     if (!projectName) {
@@ -22,20 +22,22 @@ export function executeAnchorCommand(options: BuildAnchorExecutorOptions, contex
     if (!existsSync(absoluteProjectRoot)) {
       throw new Error(`Invalid project root: ${absoluteProjectRoot}`);
     }
-  
+
     let output = '';
     const child = spawn('anchor', [options.command], { cwd: absoluteProjectRoot, stdio: 'pipe' });
 
     process.stdout.setEncoding('utf8');
     child.stdout.on('data', (data) => {
-      output += data.toString();
-      process.stdout.write(data);
+      const str = data.toString();
+      output += str
+      process.stdout.write(str);
     });
 
     process.stderr.setEncoding('utf8');
     child.stderr.on('data', (data) => {
-      output += data.toString();
-      process.stderr.write(data);
+      const str = data.toString();
+      output += str
+      process.stderr.write(str);
     });
     
     child.on('close', (code) => {

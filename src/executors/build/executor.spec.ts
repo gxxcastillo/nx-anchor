@@ -1,24 +1,21 @@
-import { ExecutorContext } from '@nx/devkit';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
+import { executeAnchorCommand } from '../../helpers';
+import { getContextFixture } from '../../helpers/testHelpers';
 import { BuildExecutorSchema } from './schema';
 import executor from './executor';
 
 const options: BuildExecutorSchema = {};
-const context: ExecutorContext = {
-  projectName: 'pname',
-  workspace: { 
-    version: 123,
-    projects: { pname: { root: 'proot'}} },
-  root: '',
-  cwd: process.cwd(),
-  isVerbose: false,
-};
+const context = getContextFixture();
+
+vi.mock('../../helpers', () => ({
+  executeAnchorCommand: vi.fn()
+}));
 
 describe('Build Executor', () => {
   it('can build', async () => {
     // @TODO - this test will fail until I stub out "spawn"
-    const output = await executor(options, context);
-    expect(output.success).toBe(true);
+    await executor(options, context);
+    expect(executeAnchorCommand).toHaveBeenCalled();
   });
 });
