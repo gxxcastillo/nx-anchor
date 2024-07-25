@@ -1,7 +1,7 @@
 {
   "name": "nx-anchor",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "{projectRoot}/src",
+  "sourceRoot": "src",
   "projectType": "library",
   "release": {
     "version": {
@@ -21,7 +21,7 @@
         "main": "{sourceRoot}/index.ts",
         "tsConfig": "{projectRoot}/tsconfig.lib.json",
         "assets": [
-          "{projectRoot}/*.md",
+          "*.md",
           {
             "input": "{sourceRoot}",
             "glob": "**/!(*.ts)",
