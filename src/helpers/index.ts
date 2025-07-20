@@ -13,8 +13,8 @@ export function executeAnchorCommand(options: RunAnchorExecutorOptions, context:
       throw new Error('A projectName must be defined');
     }
   
-    const projectRoot = context?.workspace?.projects[projectName].root;
-    if (!projectName) {
+    const projectRoot = context.projectsConfigurations?.projects[projectName]?.root;
+    if (!projectRoot) {
       throw new Error('Unable to determine project root');
     }
 
