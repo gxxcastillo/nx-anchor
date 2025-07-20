@@ -17,7 +17,11 @@
   ],
   "scripts": {
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "release": "pnpm build && pnpm test && pnpm publish --access public",
+    "release:patch": "pnpm version patch && pnpm run release",
+    "release:minor": "pnpm version minor && pnpm run release",
+    "release:major": "pnpm version major && pnpm run release"
   },
   "dependencies": {
     "@nx/devkit": "21.3.0",
@@ -46,8 +50,8 @@
     "nx": "21.3.0",
     "prettier": "^2.8.8",
     "typescript": "5.8.3",
-    "vite": "6.3.5",
-    "vitest": "^1.6.1"
+    "vite": "^7.0.5",
+    "vitest": "^3.2.4"
   },
   "generators": "./generators.json",
   "executors": "./executors.json",
